@@ -218,7 +218,7 @@ body {
   pointer-events: none;
 }
 .avatar {
-  width: 125px; height: 125px;
+  width: 130px; height: 130px;
   border-radius: 50%;
   border: 3px solid var(--pri);
   flex-shrink: 0;
@@ -325,22 +325,165 @@ body {
 /* ═══════ DIVIDER ═══════ */
 .sec-gap { margin-bottom: 20px; }
 
-/* ═══════ RESPONSIVE ═══════ */
-@media (max-width: 620px) {
+/* ═══════ WHATSAPP BTN ═══════ */
+#wa-btn {
+  position: fixed; bottom: 24px; right: 20px; z-index: 9999;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  pointer-events: none;
+}
+#wa-bubble {
+  background: #fff; color: #1a1a2e;
+  font-family: 'Open Sans', sans-serif; font-size: 12.5px; line-height: 1.45;
+  padding: 10px 28px 10px 14px; border-radius: 14px 14px 4px 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18); max-width: 220px;
+  pointer-events: auto; opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  border: 1px solid #ececec; position: relative;
+}
+#wa-bubble.visible { opacity: 1; transform: translateY(0) scale(1); }
+#wa-bubble::after {
+  content: ''; position: absolute; bottom: -7px; right: 18px;
+  width: 14px; height: 14px; background: #fff;
+  border-right: 1px solid #ececec; border-bottom: 1px solid #ececec;
+  transform: rotate(45deg); clip-path: polygon(0 0,100% 0,100% 100%);
+}
+#wa-bubble strong { color: var(--pri); font-weight: 700; }
+#wa-close {
+  position: absolute; top: 6px; right: 8px;
+  font-size: 15px; color: #bbb; cursor: pointer; line-height: 1;
+  pointer-events: auto; transition: color 0.15s;
+}
+#wa-close:hover { color: #666; }
+#wa-circle {
+  width: 58px; height: 58px; background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5); cursor: pointer;
+  pointer-events: auto; transition: transform 0.2s, box-shadow 0.2s;
+  animation: waPulse 2.5s ease-in-out infinite; text-decoration: none;
+}
+#wa-circle:hover { transform: scale(1.1); animation: none; box-shadow: 0 6px 28px rgba(37,211,102,0.65); }
+#wa-circle svg { width: 32px; height: 32px; fill: #fff; }
+@keyframes waPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+  50%      { box-shadow: 0 4px 32px rgba(37,211,102,0.8), 0 0 0 10px rgba(37,211,102,0.1); }
+}
+
+/* ═══════ MOBILE FIRST — ≤640px ═══════ */
+@media (max-width: 640px) {
+
+  body { font-size: 13.5px; }
+  #cv { box-shadow: none; }
+
+  /* export bar */
+  #export-bar { padding: 8px 14px; gap: 6px; }
+  #export-bar .bar-left { font-size: 10px; }
+  #export-btn { padding: 7px 16px; font-size: 11.5px; }
+
+  /* ── HERO HEADER ── */
+  .cv-hdr {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 0 28px;
+    gap: 0;
+    position: relative;
+    overflow: visible;
+  }
+  /* Full-width gradient banner */
+  .cv-hdr::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 140px;
+    background: linear-gradient(135deg, #1a0a30 0%, #2e0f56 45%, #7414CC 100%);
+    z-index: 0;
+    border-radius: 0;
+  }
+  /* Bottom soft wave */
+  .cv-hdr::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 120px; left: 0; right: 0;
+    height: 40px;
+    background: var(--hdr-bg);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    z-index: 1;
+  }
+  /* Large centered avatar */
+  .avatar {
+    width: 116px; height: 116px;
+    border: 4px solid var(--pri);
+    box-shadow: 0 0 0 5px rgba(116,20,204,0.28), 0 10px 40px rgba(0,0,0,0.45);
+    margin-top: 36px;
+    position: relative; z-index: 3;
+    flex-shrink: 0;
+  }
+  /* Info block */
+  .hdr-info {
+    position: relative; z-index: 3;
+    width: 100%; padding: 16px 20px 0;
+  }
+  .hdr-name {
+    font-size: 23px; letter-spacing: 0.04em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  }
+  .hdr-title {
+    font-size: 9.5px; color: #d0a8ff;
+    margin-top: 7px; line-height: 1.55; letter-spacing: 0.09em;
+  }
+  /* Contact pills */
+  .hdr-contacts {
+    flex-direction: column; align-items: center;
+    gap: 8px; margin-top: 18px;
+  }
+  .hdr-contact {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 24px; padding: 8px 18px;
+    font-size: 12.5px; color: #e0d0f8;
+    width: 100%; max-width: 290px;
+    justify-content: center; gap: 8px;
+    backdrop-filter: blur(6px);
+  }
+  .hdr-contact svg { width: 15px; height: 15px; fill: #c49ef0; }
+  .hdr-contact:active { background: rgba(116,20,204,0.3); }
+
+  /* ── Single column body ── */
   .cv-body { display: block; }
-  .cv-main, .cv-side { display: block; width: 100%; }
-  .cv-main { border-right: none; border-bottom: 1px solid var(--brd); padding: 20px 16px; }
-  .cv-side { padding: 20px 16px; }
-  .cv-hdr { flex-direction: column; align-items: flex-start; padding: 22px 18px; gap: 16px; }
-  .hdr-name { font-size: 18px; }
+  .cv-main { display: block; width: 100%; padding: 22px 16px 26px; border-right: none; border-bottom: 1px solid var(--brd); }
+  .cv-side  { display: block; width: 100%; padding: 22px 16px 26px; background: var(--side-bg); }
+
+  /* ── Section titles ── */
+  .sec-ttl { font-size: 10px; letter-spacing: 0.14em; }
+
+  /* ── Job cards ── */
+  .job { margin-bottom: 22px; }
   .job-hdr-tbl { display: block; }
-  .job-hdr-left, .job-hdr-right { display: block; width: 100%; text-align: left; }
-  #export-bar { flex-direction: column; gap: 8px; padding: 10px 16px; }
+  .job-hdr-left { display: block; width: 100%; }
+  .job-hdr-right { display: block; width: auto; text-align: left; padding-left: 41px; margin-top: 4px; }
+  .logo-box { width: 32px; height: 32px; }
+  .logo-box img { width: 28px; height: 28px; }
+  .job-role { font-size: 13px; }
+  .job-co { font-size: 12px; }
+  .job-date { font-size: 10px; }
+  .job-desc, .job-ul li { font-size: 12.5px; }
+  .tag { font-size: 10px; padding: 3px 9px; }
+  .sk-tag { font-size: 9.5px; padding: 3px 8px; }
+}
+
+/* ── Tablet ── */
+@media (min-width: 641px) and (max-width: 860px) {
+  .cv-hdr { padding: 26px 28px 22px; gap: 20px; }
+  .hdr-name { font-size: 20px; }
+  .cv-main { padding: 22px 20px; }
+  .cv-side { padding: 22px 16px; }
 }
 
 /* ═══════ PRINT ═══════ */
 @media print {
-  #export-bar, .progress-bar { display: none !important; }
+  #export-bar, .progress-bar, #wa-btn { display: none !important; }
   body { background: #fff; }
   #cv { box-shadow: none; }
   .job { page-break-inside: avoid; }
@@ -865,6 +1008,34 @@ async function startExport() {
     prog.classList.remove('active');
     setProgress(0);
   }, 1200);
+}
+</script>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<div id="wa-btn">
+  <div id="wa-bubble">
+    <span id="wa-close" onclick="closeWA()" title="Cerrar">✕</span>
+    👋 <strong>¡Hola!</strong> Estoy disponible para nuevas oportunidades. <strong>Escribime por WhatsApp y conversemos</strong> 🚀
+  </div>
+  <a id="wa-circle"
+     href="https://wa.me/5491157935007?text=Hola%20Luciano%2C%20sabemos%20que%20sos%20el%20mejor%20y%20queremos%20que%20escuches%20esta%20oferta%20imperdible!"
+     target="_blank" rel="noopener" title="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+// Show bubble after 2s
+setTimeout(function() {
+  var b = document.getElementById('wa-bubble');
+  if (b) b.classList.add('visible');
+}, 2000);
+
+function closeWA() {
+  var b = document.getElementById('wa-bubble');
+  if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 320); }
 }
 </script>
 
